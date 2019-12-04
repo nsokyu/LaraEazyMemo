@@ -11,7 +11,7 @@
 </div>
 
 <form class="form-signup" action="{{ url('/signup') }}" method="post">
-    {{ csrf_field() }}
+    @csrf
     <div class="form-group">
         <label class="SignupForm_label" for="username">ユーザ名</label>
         <input type="text" name="name" class="form-control" id="username" placeholder="eazymemo" value="{{ old('name') }}">

@@ -14,19 +14,21 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'UsersController@index');
+// Route::get('/', 'UsersController@index')->name('index');
+// ログインページに遷移、ログイン処理
+Route::resource('/', 'IndexController', ['only' => ['index', 'store', 'show']]);
+// ユーザ登録処理
 Route::post('/signup', 'UsersController@create');
-Route::get('/signup', 'UsersController@signup');
-Route::post('/signin', 'UsersController@signin');
-// Route::get('/{users}', 'UsersController@main');
-Route::post('/{users}/memos', 'MemosController@store');
-
-// Auth::routes();
-Route::get('members/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('members/login', 'Auth\LoginController@login');
-Route::post('members/logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('members/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('members/register', 'Auth\RegisterController@register');
+// ユーザ登録画面に遷移
+Route::get('/signup', 'UsersController@signup')->name('signup');
+// Route::post('/signin', 'UsersController@signin');
+// ログインページに遷移
+Route::get('/main/signout', 'UsersController@signout')->name('signout');
+// ホーム画面（ログイン後）に遷移
+Route::get('/main/{user}', 'UsersController@main')->name('main');
+// メモ登録処理
+Route::post('/main/{user}', 'MemosController@store')->name('memoInsert');
+// メモ個別表示
+Route::get('/main/{user}/{memo}', 'MemosController@show')->name('memoShow');
+// メモ更新処理
+Route::post('/main/{user}/{memo}/update', 'MemosController@update')->name('memoUpdate');

@@ -10,7 +10,12 @@
 </div>
 
 <div class="div-regulate-signin">
-    <form class="form-signin" action="{{ url('/signin') }}" method="post">
+    @if (isset( $errormessage ))
+    <p>{{ $errormessage }}</p>
+    @endif
+
+    <form class="form-signin" action="{{ url('/') }}" method="post">
+        @csrf
         <div class="form-group">
             <input type="email" class="form-control" name="email" placeholder="メールアドレス" value="{{ old('email') }}" required autofocus>
             @if ($errors->has('email'))
@@ -28,7 +33,7 @@
         </div>
     </form>
     <br>
-    <a class="btn btn-outline-primary" type="submit" href="{{ url('/signup') }}">ユーザ登録</a>
+    <a class="btn btn-outline-primary" type="submit" href="{{ route('signup') }}">ユーザ登録</a>
     <form class="form-Experience" action="index.php" method="post">
         <button class="btn btn-outline-primary" type="submit" name="buttonExperience" value="Experience">すぐに体験する</button>
     </form>
