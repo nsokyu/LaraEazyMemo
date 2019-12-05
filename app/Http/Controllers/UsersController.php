@@ -36,6 +36,42 @@ class UsersController extends Controller
         return view('users.signup');
     }
 
+    public function signin(Request $request)
+    {
+        //一般ユーザのログイン処理
+        if ($request->is_user == 1) {
+            //ログインの認証
+            // if (DB::table('users')->where('email', $request->email)->exists()) {
+            // $user = DB::table('users')->where('email', $request->email)->first();
+            if (USER::where('email', $request->email)->exists()) {
+                $user = USER::where('email', $request->email)->first();
+                if (Hash::check($request->password, $user->password)) {
+                    $request->session()->put('user_id', $user);
+                    // return route('main');
+                    return redirect()->route('main', $user);
+                } else {
+                    $errormessage = "メールアドレスまたはパスワードに誤りがあります。";
+                    return back()->with('errormessage', $errormessage);
+                }
+            } else {
+                $errormessage = "メールアドレスまたはパスワードに誤りがあります。";
+                return back()->with('errormessage', $errormessage);
+            }
+        }
+
+        //トライアルユーザのログイン処理
+        if ($request->is_user == 0) {
+            //ログインの認証
+            $request->session()->put('user_id', 1);
+            // return route('main');
+            $user = User::find(1);
+            return redirect()->route('main', $user);
+
+            $errormessage = "メールアドレスまたはパスワードに誤りがあります。";
+            return back()->with('errormessage', $errormessage);
+        }
+    }
+
 
     public function main(User $user, Request $request)
     {

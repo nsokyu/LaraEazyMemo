@@ -37,21 +37,7 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //ログインの認証
-        if (DB::table('users')->where('email', $request->email)->exists()) {
-            $user = DB::table('users')->where('email', $request->email)->first();
-            if (Hash::check($request->password, $user->password)) {
-                $request->session()->put('user_id',$user->id);
-                // return route('main');
-                return redirect()->route('main', $user->id);
-            } else {
-                $errormessage = "メールアドレスまたはパスワードに誤りがあります。";
-                return view('users.index')->with('errormessage', $errormessage);
-            }
-        } else {
-            $errormessage = "メールアドレスまたはパスワードに誤りがあります。";
-            return view('users.index')->with('errormessage', $errormessage);
-        }
+        //
     }
 
     /**
@@ -60,9 +46,9 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($errormessage)
     {
-        //
+        return view('users.index')->with('errormessage', $errormessage);
     }
 
     /**

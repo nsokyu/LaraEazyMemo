@@ -16,7 +16,7 @@
             <form class="form-main" action="{{ route('memoUpdate', [$user, $memo]) }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <textarea class="form-control" name="memo" rows="10" cols="50" wrap="hard" value="{{ old('memo') }}" placeholder="ここにメモを入力">{{ $memo->memo }}</textarea><br>
+                <textarea class="form-control" name="memo" rows="10" cols="50" wrap="hard" value="{{ old('memo') }}" placeholder="ここにメモを入力">{{ $memo->memo}}</textarea><br>
                     @if ($errors->has('memo'))
                     <span class="error">{{ $errors->first('memo') }}</span>
                     @endif
