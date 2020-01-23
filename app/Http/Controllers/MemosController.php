@@ -45,4 +45,10 @@ class MemosController extends Controller
         $memo->save();
         return redirect()->route('main', $user);
     }
+
+    public function delete(User $user, Memo $memo)
+    {
+        $memo->delete();
+        return redirect()->route('main', $user);
+    }
 }

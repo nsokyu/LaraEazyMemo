@@ -39,3 +39,5 @@ Route::get('/main/{user}/{memo}', 'MemosController@show')->name('memoShow')->whe
     ]);
 // メモ更新処理
 Route::post('/main/{user}/{memo}/update', 'MemosController@update')->name('memoUpdate');
+// メモ削除処理
+Route::delete('/main/{user}/{memo}', 'MemosController@delete')->name('memoDelete');

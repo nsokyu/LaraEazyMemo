@@ -55,6 +55,14 @@
                 <button class="btn btn-md btn-success btn-block" type="submit" value="Add">保存</button>
             </form>
             <br>
+            <a class="btn btn-outline-primary" type="submit" href="{{ route('main', $user) }}">メニュー</a>
+            <br>
+            <br>
+            <a href="#" class="del" data-id="{{ $memo->id }}">[メモを削除]</a>
+            <form method="post" action="{{ route('memoDelete', [$user, $memo]) }}" id="form_{{ $memo->id }}">
+                    @csrf
+                    @method('delete')
+            </form>        
             <br>
             <a class="btn btn-outline-primary" type="submit" href="{{ route('signout') }}">ログアウト</a>
         </div>
@@ -95,4 +103,5 @@
 
 
 </div>
+<script src="/js/main.js"></script>
 @endsection
